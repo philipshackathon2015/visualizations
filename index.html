@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+  <html>
+    <title>Doctor dashboard</title>
+    <style>
+      .bar {
+          display: inline-block;
+          width: 20px;
+          height: 75px;
+          background-color: teal;
+          margin-right: 2px;
+      }
+     .svg-total {
+        width: 600px;
+        height: 500px;
+     }
+    </style>
+    <body>
+    Start: <input type="date" id="start-date" value="2014-08-01" name="start-date"> End: <input type="date" value="2015-03-09" id="end-date" name="end-date">
+
+    Type: 
+    <select id="type-menu">
+      <option value="sleep">Sleep</option>
+      <option value="steps">Steps</option>
+      <option value="social">Social</option>
+      <option value="mood">Mood</option>
+    </select>
+
+    <p>The following visualizations use sample sleep data (minutes), step data and mood data from the newly released Philips HealthSuite Digital Platform (HSDP).</p>
+    <p>Social happiness data is gathered by a <a href="https://github.com/philipshackathon2015/server">worker performing sentiment analysis</a> of a fictional <a href="https://twitter.com/charlenemullyyy">Charlene Mulligan's Twitter feed</a>. Notifications based on this data are pushed to the <a href="https://github.com/philipshackathon2015/client">app client</a> using a <a href="https://github.com/philipshackathon2015/background-jobs">background job</a> watching data changes in MongoDB.</p>
+  
+    <div id="svg-container"></div>
+
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.js"></script>
+      <script type="text/javascript" src="d3.v3.js"></script>
+      <script type="text/javascript" src="visualization.js"></script>
+    </body>
+  </html>
