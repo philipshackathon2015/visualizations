@@ -1,5 +1,3 @@
-
-
 var VisualizationController = function(){
   this.dates = {startDate: new Date("2014-08-01"), endDate: new Date("2015-03-10")};
   this.unitData = {};
@@ -12,7 +10,6 @@ var VisualizationController = function(){
   this.width = 700;
   this.height = 400;
   this.padding = 100;
-  // this.graphData = this.unitData[this.selected]; // defaults to social
 };
 
 
@@ -25,14 +22,9 @@ VisualizationController.prototype = {
           return dataPoint;
         }
       });
-      console.log(self.unitDataByDate[key]);
       self.unitDataByDate[key] = self.unitDataByDate[key].filter(function(n){ return n != undefined; });
-
     }
-    console.log(this.selected)
     this.renderData(self.unitDataByDate[this.selected]);
-    console.log(self.unitDataByDate);
-
   },
   dateListeners: function(){
     var self = this;
@@ -72,6 +64,7 @@ VisualizationController.prototype = {
     this.getData("MDC_PHYSIO_MOOD", "mood", d3);
     this.getSentimentData("social", d4);
     $.when(d1, d2, d3, d4).then(function(){
+      document.getElementById('loading').classList.add('hide');
       self.boundDataByDate();
     }); 
   },
@@ -106,7 +99,6 @@ VisualizationController.prototype = {
     for(var i = 0; i<posArray[0].length; i++){
       coordArr[i] = [posArray[0][i], posArray[1][i]];
     }
-    console.log(coordArr);
 
     var self = this;
 
@@ -114,15 +106,11 @@ VisualizationController.prototype = {
       .enter()
       .append("circle")
       .attr("fill", function(d){
-        // if(self.selected == "social"){
           if (colorScale(d[1])>0){
-            // console.log("rgb(" + (Math.floor(colorScale(d[1]))) + ",0,0)");
             return "rgba(" + (Math.floor(colorScale(d[1]))) + ",0,50,0.7)";
           } else {
-            // console.log(colorScale(d[1]));
             return "rgba(0," + (-1 * Math.floor(colorScale(d[1]))) + ",50,0.7)";
-          } // change these for color scale
-        // }
+          }
       })
       .attr("class", "point")
       .attr("cx", function(d, i){
@@ -136,9 +124,7 @@ VisualizationController.prototype = {
       });
 
   },
-
   renderData: function(data){
-    console.log(data);
     var dateData = this.setDataDateRange(data);
     var valueData = this.setDataValueRange(data);
     this.plotPoints([dateData, valueData]);
@@ -152,7 +138,7 @@ VisualizationController.prototype = {
   },
   renderDataValueRange: function(minvalue, maxvalue){
     var yScale = d3.scale.linear()
-      .domain([minvalue, maxvalue])    // values within the scope of the data
+      .domain([minvalue, maxvalue]) 
       .range([this.height - this.padding, this.padding]); 
 
 
@@ -167,12 +153,12 @@ VisualizationController.prototype = {
       .attr("id", "yaxis")
       .attr("transform", "translate("+this.padding+",0)")
       .call(yAxis);
-    return yScale; // used to transform data points
+    return yScale;
   },
   renderDataDateRange: function(mindate, maxdate){
     var xScale = d3.time.scale()
-      .domain([mindate, maxdate])    // values within the scope of the data
-      .range([this.padding, this.width - this.padding * 2]); // ?
+      .domain([mindate, maxdate])  
+      .range([this.padding, this.width - this.padding * 2]);
 
 
     var xAxis = d3.svg.axis()
@@ -188,10 +174,10 @@ VisualizationController.prototype = {
         .call(xAxis);
 
     this.rotateXLabels();
-    return xScale; // used to transform data points
+    return xScale; 
   },
   rotateXLabels: function(){
-    this.graph.selectAll(".xaxis text")  // select all the text elements for the xaxis
+    this.graph.selectAll(".xaxis text") 
       .attr("transform", function(d) {
           return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
         });
@@ -219,7 +205,7 @@ VisualizationController.prototype = {
     var minvalue = Math.min.apply(Math, range);
     var yScale = this.renderDataValueRange(minvalue, maxvalue);
     var mappedRange = range.map(function(item){
-      return yScale(item); // converts the values here from their original scale
+      return yScale(item);
     });
 
     return mappedRange;
@@ -228,9 +214,9 @@ VisualizationController.prototype = {
     var self = this;
     document.getElementById("type-menu").addEventListener('change', function(){
       self.selected = this.options[this.selectedIndex].value;
-      console.log(self.unitDataByDate[self.selected])
       self.renderData(self.unitDataByDate[self.selected]);
     });
   }
 };
+
 var visualizationController = new VisualizationController();

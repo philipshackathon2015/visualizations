@@ -2,6 +2,20 @@
   <html>
     <title>Doctor dashboard</title>
     <style>
+      .loading {
+        display: inline-block;
+        height: 45vh;
+        width: 45%;
+        position: absolute;
+        left: 0;
+        background-image: url("ajax-loader.gif");
+        background-repeat: no-repeat;
+        background-position: center center;
+        z-index: 2;
+      }
+      .hide {
+        display: none;
+      }
       .bar {
           display: inline-block;
           width: 20px;
@@ -29,6 +43,7 @@
     <p>Social happiness data is gathered by a <a href="https://github.com/philipshackathon2015/server">worker performing sentiment analysis</a> of a fictional <a href="https://twitter.com/charlenemullyyy">Charlene Mulligan's Twitter feed</a>. Notifications based on this data are pushed to the <a href="https://github.com/philipshackathon2015/client">app client</a> using a <a href="https://github.com/philipshackathon2015/background-jobs">background job</a> watching data changes in MongoDB.</p>
   
     <div id="svg-container"></div>
+    <div class="loading" id="loading"></div>
 
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.js"></script>
       <script type="text/javascript" src="d3.v3.js"></script>

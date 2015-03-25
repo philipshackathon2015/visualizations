@@ -1,0 +1,23 @@
+{
+  "name": "visualizations",
+  "version": "1.0.0",
+  "description": "Happ is a mobile app to help patients with life-changing illnesses maintain a positive mental and behavioral outlook. Learn more about <a href=\"https://drive.google.com/file/d/0B4oYHWoyxHvOU1JHM1RRRk1qT3c/view?usp=sharing\">Happ here</a>.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/philipshackathon2015/visualizations.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/philipshackathon2015/visualizations/issues"
+  },
+  "dependencies": {
+    "express": "*"
+  },
+  "homepage": "https://github.com/philipshackathon2015/visualizations"
+}
